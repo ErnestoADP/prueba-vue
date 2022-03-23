@@ -11,7 +11,7 @@
           <b-nav-item to="/about">Administracion</b-nav-item>
           <b-nav-item to="/login">Login</b-nav-item>
           <b-nav-item to="/registrar">Registrar</b-nav-item>
-          <b-nav-item to="/editar">Editar</b-nav-item>
+         
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -29,6 +29,7 @@ export default {
   name: "Navbar",
   methods:{
     logout(){
+    
       getAuth().signOut().then(()=>{
         alert("Deslogeado!")
         this.$router.push("/Login")

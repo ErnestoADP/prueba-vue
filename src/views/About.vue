@@ -1,14 +1,17 @@
 <template>
-  <div>
+  <div class="cuerpo">
     <div>
       <div class="nose">
         <h2 style="margin: 20px 0">Administración</h2>
+<!--------------------------------------------------------BOTON PARA AGREGAR LOS DATOS DEL CURSO------------------------------------------------------------------------------->
+
         <b-button
           class="m-2"
-          variant="primary"
+          variant="outline-primary"
           @click="$bvModal.show('bv-modal-example')"
-          >Agregar Curso</b-button
-        >
+          >Agregar Curso</b-button>
+<!--------------------------------------------------------MODAL PARA AGREGAR LOS DATOS DEL CURSO------------------------------------------------------------------------------->
+
         <b-modal id="bv-modal-example" hide-footer>
           <template #modal-title> Agregando Curso </template>
           <div>
@@ -65,8 +68,9 @@
         </b-modal>
       </div>
     </div>
+<!--------------------------------------------------------TABLA CON LOS DATOS------------------------------------------------------------------------------->
     <section>
-      <table>
+      <table class="tabla">
         <thead>
           <tr>
             <th>Cursos</th>
@@ -74,7 +78,7 @@
             <th>Inscritos</th>
             <th>Duración</th>
             <th>Costo</th>
-            <th>Acciones</th>
+            <th clas="texto">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -85,24 +89,28 @@
             <td>{{ curso.data.inscritosEnElCurso }}</td>
             <td>{{ curso.data.duracionDelCurso }}</td>
             <td>
-              <b-button @click="onEditarCurso(curso.id)">Editar</b-button>
+<!--------------------------------------------------------BOTON PARA EDITAR------------------------------------------------------------------------------>
+              <b-button
+                class="buttons-table"
+                squared
+                variant="outline-warning"
+                @click="onEditarCurso(curso.id)"
+                ><b-icon icon="pencil" scale="1" variant="dark"></b-icon
+              ></b-button>
+<!--------------------------------------------------------BOTON PARA ELIMINAR------------------------------------------------------------------------------->
+             <b-button
+                class="buttons-table"
+                squared
+                variant="outline-danger"
+                @click="borrar(curso.id)"
+                ><b-icon icon="trash" scale="1" variant="dark"></b-icon
+              ></b-button>
             </td>
-            <td>
-              <b-button @click="borrar(curso.id)"> Eliminar </b-button>
-            </td>
+            <td></td>
           </tr>
         </tbody>
       </table>
-
-      <div>
-        <input class="uno m-2" type="text" readonly="readonly" />
-        <input class="dos m-2" type="text" readonly="readonly" />
-        <input class="tres m-2" type="text" readonly="readonly" />
-        <input class="cuatro m-2" type="text" readonly="readonly" />
-        <input class="cinco m-2" type="text" readonly="readonly" />
-        <input class="seis m-2" type="text" readonly="readonly" />
-      </div>
-
+<!--------------------------------------------------------MODAL PARA EDITAR------------------------------------------------------------------------------->
       <b-modal v-model="modalShow">
         <h1>Editar</h1>
 
@@ -149,11 +157,19 @@
             placeholder="Curso con las nuevas actualizaciones de JavaScript Avanzado"
             rows="8"
           >
-          
           </b-form-textarea>
-          
         </div>
       </b-modal>
+      dv
+<!--------------------------------------------------------CONTEO DE LOS CURSOS Y ALUMNOS------------------------------------------------------------------------------->
+      <div>
+        <input class="uno m-2" type="text" readonly="readonly" placeholder="ayuda" />
+        <input class="dos m-2" type="text" readonly="readonly"  placeholder="ayuda"/>
+        <input class="tres m-2" type="text" readonly="readonly" placeholder="ayuda"/>
+        <input class="cuatro m-2" type="text" readonly="readonly" placeholder="ayuda"/>
+        <input class="cinco m-2" type="text" readonly="readonly" placeholder="ayuda"/>
+        <input class="seis m-2" type="text" readonly="readonly" placeholder="ayuda"/>
+      </div>
     </section>
   </div>
 </template>
@@ -167,7 +183,7 @@ import {
   doc,
   deleteDoc,
   setDoc,
-} from "firebase/firestore"; //
+} from "firebase/firestore";
 export default {
   name: "About",
 
@@ -200,6 +216,7 @@ export default {
     };
   },
   methods: {
+    ///AGREGAR CURSO
     async addCurso() {
       alert("Regristro con exito!");
       const db = getFirestore();
@@ -223,6 +240,7 @@ export default {
         this.cursos = cursos;
       });
     },
+    ///BORRAR
     async borrar(id) {
       const db = getFirestore();
       const coleccion = "cursos";
@@ -247,13 +265,14 @@ export default {
   mounted() {
     this.getCurso();
   },
+ 
 };
 </script>
 
 
 
 
-<style >
+<style about>
 input {
   border-radius: 0.3rem;
   padding: 0.2rem;
@@ -263,26 +282,53 @@ input {
   box-shadow: 1px 2px 1px #aaaaaa;
 }
 .uno {
-  border-color: rgb(140, 92, 236);
+  
+  border:2px solid rgb(140, 92, 236);
 }
 .dos {
-  border-color: rgb(11, 255, 255);
+  border:2px solid rgb(11, 255, 255);
 }
 .tres {
-  border-color: orangered;
+  border:2px solid orangered;
 }
 .cuatro {
-  border-color: crimson;
+  border:2px solid crimson;
 }
 .cinco {
-  border-color: saddlebrown;
+  border:2px solid saddlebrown;
 }
 .seis {
-  border-color: orange;
+  border:2px solid orange;
 }
 .nose {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.cuerpo {
+  width: 70%;
+  margin: auto;
+}
+.tabla {
+  width: 100%;
+}
+.texto {
+  text-align: center;
+}
+.buttons-table {
+  margin: 0.1rem;
+ 
+}
+  table{
+border:2px solid rgb(0, 0, 0);
+ box-shadow: 0px 5px 10px #aaaaaa;
+ margin: 0.4rem;
+ 
+
+}
+th,td{
+padding:4px 1px 3px 1px ;
+border-bottom: 1px solid;
+box-shadow: 0px 1px 0px #000000;
 }
 </style>

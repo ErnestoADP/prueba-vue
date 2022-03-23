@@ -16,7 +16,17 @@ const firebaseConfig = {
     appId: "1:246505405201:web:a32f24586f8891d070eab0"
 };
 
+// src/plugins/vuetify.js
 
+
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
+
+Vue.use(Vuetify)
+
+const opts = {}
+
+export default new Vuetify(opts)
 
 initializeApp(firebaseConfig);
 
@@ -30,5 +40,6 @@ Vue.config.productionTip = false;
 new Vue({
     router,
     store,
+
     render: (h) => h(App)
 }).$mount("#app");
