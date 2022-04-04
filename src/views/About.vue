@@ -3,14 +3,15 @@
     <div>
       <div class="nose">
         <h2 style="margin: 20px 0">Administración</h2>
-<!--------------------------------------------------------BOTON PARA AGREGAR LOS DATOS DEL CURSO------------------------------------------------------------------------------->
+        <!--------------------------------------------------------BOTON PARA AGREGAR LOS DATOS DEL CURSO------------------------------------------------------------------------------->
 
         <b-button
           class="m-2"
           variant="outline-primary"
           @click="$bvModal.show('bv-modal-example')"
-          >Agregar Curso</b-button>
-<!--------------------------------------------------------MODAL PARA AGREGAR LOS DATOS DEL CURSO------------------------------------------------------------------------------->
+          >Agregar Curso</b-button
+        >
+        <!--------------------------------------------------------MODAL PARA AGREGAR LOS DATOS DEL CURSO------------------------------------------------------------------------------->
 
         <b-modal id="bv-modal-example" hide-footer>
           <template #modal-title> Agregando Curso </template>
@@ -68,7 +69,7 @@
         </b-modal>
       </div>
     </div>
-<!--------------------------------------------------------TABLA CON LOS DATOS------------------------------------------------------------------------------->
+    <!--------------------------------------------------------TABLA CON LOS DATOS------------------------------------------------------------------------------->
     <section>
       <table class="tabla">
         <thead>
@@ -77,7 +78,7 @@
             <th>Cupos</th>
             <th>Inscritos</th>
             <th>Duración</th>
-          
+
             <th clas="texto">Acciones</th>
           </tr>
         </thead>
@@ -87,9 +88,9 @@
             <td>{{ curso.data.cuposDelCurso }}</td>
             <td>{{ curso.data.inscritosEnElCurso }}</td>
             <td>{{ curso.data.duracionDelCurso }}</td>
-           
+
             <td>
-<!--------------------------------------------------------BOTON PARA EDITAR------------------------------------------------------------------------------>
+              <!--------------------------------------------------------BOTON PARA EDITAR------------------------------------------------------------------------------>
               <b-button
                 class="buttons-table"
                 squared
@@ -97,8 +98,8 @@
                 @click="onEditarCurso(curso.id)"
                 ><b-icon icon="pencil" scale="1" variant="dark"></b-icon
               ></b-button>
-<!--------------------------------------------------------BOTON PARA ELIMINAR------------------------------------------------------------------------------->
-             <b-button
+              <!--------------------------------------------------------BOTON PARA ELIMINAR------------------------------------------------------------------------------->
+              <b-button
                 class="buttons-table"
                 squared
                 variant="outline-danger"
@@ -110,7 +111,7 @@
           </tr>
         </tbody>
       </table>
-<!--------------------------------------------------------MODAL PARA EDITAR------------------------------------------------------------------------------->
+      <!--------------------------------------------------------MODAL PARA EDITAR------------------------------------------------------------------------------->
       <b-modal v-model="modalShow">
         <h1>Editar</h1>
 
@@ -160,15 +161,28 @@
           </b-form-textarea>
         </div>
       </b-modal>
-    
-<!--------------------------------------------------------CONTEO DE LOS CURSOS Y ALUMNOS------------------------------------------------------------------------------->
-   <div>
-        <input class="uno m-2" type="text" readonly="readonly" placeholder="Cantidad Total de alumnos:" />
-        <input class="dos m-2" type="text" readonly="readonly"  placeholder="Cantidad total de alumnos inscritos: "/>
-        <input class="tres m-2" type="text" readonly="readonly" placeholder="Cantidad de cupos restantes: "/>
-          <input class="cuatro m-2" type="text" readonly="readonly"  placeholder="Cantidad de cursos terminados: 0" /> 
-        <input class="cinco m-2" type="text" readonly="readonly" placeholder="Cantidad de cursos activos: "/>
-        <input class="seis m-2" type="text" readonly="readonly" placeholder="Cantidad de cursos: "/>
+
+      <!--------------------------------------------------------CONTEO DE LOS CURSOS Y ALUMNOS------------------------------------------------------------------------------->
+      <div>
+        <p class="uno m-2" type="text" readonly="readonly">
+          Cantidad Total de alumnos permitidos: {{ totalDeCupos }}
+        </p>
+
+        <p class="dos m-2" type="text" readonly="readonly">
+          Cantidad total de alumnos inscritos: {{ totalDeInscritos }}
+        </p>
+        <p class="tres m-2" type="text" readonly="readonly">
+          Cantidad de cupos restantes: {{ totalDeCuposDisponibles }}
+        </p>
+        <p class="cuatro m-2" type="text" readonly="readonly">
+          Cantidad de cursos terminados: {{ totalDeCursosterminados }}
+        </p>
+        <p class="cinco m-2" type="text" readonly="readonly">
+          Cantidad de cursos activos: {{ totalDeCursosActivos }}
+        </p>
+        <p class="seis m-2" type="text" readonly="readonly">
+          Cantidad de cursos:{{ totalDeCursos }}
+        </p>
       </div>
     </section>
   </div>
@@ -265,7 +279,48 @@ export default {
   mounted() {
     this.getCurso();
   },
- 
+
+  computed: {
+    totalDeCupos(state) {
+      const { cursos } = state;
+      return cursos.reduce((a, b) => {
+        return a + parseInt(b.data.cuposDelCurso);
+      }, 0);
+    },
+    totalDeInscritos(state) {
+      const { cursos } = state;
+      return cursos.reduce((a, b) => {
+        return a + parseInt(b.data.inscritosEnElCurso);
+      }, 0);
+    },
+    totalDeCuposDisponibles(state) {
+      const { cursos } = state;
+      return cursos.reduce((a, b) => {
+        const cuposDisponibles = parseInt(
+          b.data.cuposDelCurso - b.data.inscritosEnElCurso
+        );
+        return a + cuposDisponibles;
+      }, 0);
+    },
+    totalDeCursosterminados(state) {
+      const { cursos } = state;
+      return cursos.reduce((a, b) => {
+        if (b.data.cursoTerminado) return a + 1;
+        else return a;
+      }, 0);
+    },
+    totalDeCursosActivos(state) {
+      const { cursos } = state;
+      return cursos.reduce((a, b) => {
+        if (!b.data.cursoTerminado) return a + 1;
+        else return a;
+      }, 0);
+    },
+    totalDeCursos(state) {
+      const { cursos } = state;
+      return cursos.length;
+    },
+  },
 };
 </script>
 
@@ -281,24 +336,32 @@ input {
   width: 100%;
   box-shadow: 1px 2px 1px #aaaaaa;
 }
+p {
+  border-radius: 0.3rem;
+  padding: 0.2rem;
+  border: 0.1rem solid;
+  margin: 0.4rem;
+  width: 100%;
+  box-shadow: 1px 2px 1px #aaaaaa;
+  text-align: left;
+}
 .uno {
-  
-  border:2px solid rgb(140, 92, 236);
+  border: 2px solid rgb(140, 92, 236);
 }
 .dos {
-  border:2px solid rgb(11, 255, 255);
+  border: 2px solid rgb(11, 255, 255);
 }
 .tres {
-  border:2px solid orangered;
+  border: 2px solid orangered;
 }
 .cuatro {
-  border:2px solid crimson;
+  border: 2px solid crimson;
 }
 .cinco {
-  border:2px solid saddlebrown;
+  border: 2px solid saddlebrown;
 }
 .seis {
-  border:2px solid orange;
+  border: 2px solid orange;
 }
 .nose {
   display: flex;
@@ -317,19 +380,16 @@ input {
 }
 .buttons-table {
   margin: 0.1rem;
- 
 }
-  table{
-border:2px solid rgb(0, 0, 0);
- box-shadow: 0px 5px 10px #aaaaaa;
- margin: 0.4rem;
- 
-
+table {
+  border: 2px solid rgb(0, 0, 0);
+  box-shadow: 0px 5px 10px #aaaaaa;
+  margin: 0.4rem;
 }
-th,td{
-padding:4px 1px 3px 1px ;
-border-bottom: 1px solid;
-box-shadow: 0px 1px 0px #000000;
+th,
+td {
+  padding: 4px 1px 3px 1px;
+  border-bottom: 1px solid;
+  box-shadow: 0px 1px 0px #000000;
 }
-
 </style>

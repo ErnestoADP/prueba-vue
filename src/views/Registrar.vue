@@ -36,6 +36,7 @@ export default {
     };
   },
   methods: {
+    
     async addUser() {
       alert("Regristro con exito!");
       const db = getFirestore();
@@ -44,7 +45,7 @@ export default {
 
       const documento = this.usuario;
       await addDoc(coleccion, documento);
-      this.$router.push("/");
+      this.$router.push("/login");
     },
 
     async registrar() {
