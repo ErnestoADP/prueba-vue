@@ -11,7 +11,7 @@
           type="password"
         />
 
-        <b-button @click="registrar" class="m-3" variant="success"
+        <b-button @click="addUser" class="m-3" variant="success"
           >Registrar</b-button
         >
         <b-button class="m-3" variant="danger">Limpiar Formulario</b-button>
@@ -44,13 +44,15 @@ export default {
 
       const documento = this.usuario;
       await addDoc(coleccion, documento);
+      this.$router.push("/");
     },
 
     async registrar() {
+      
       const { email, password } = this.usuario;
       const auth = getAuth();
       await createUserWithEmailAndPassword(auth, email, password);
-      this.$router.push("/");
+      
     },
   },
 };

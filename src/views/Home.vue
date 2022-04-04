@@ -1,32 +1,25 @@
 <template>
-<div>
+
   <div class="card">
     <b-container class="bv-example-row">
   <h2 style="margin: 20px 0">Lista de Cursos</h2>
   <b-row>
-    <b-col v-for="(curso, i) in cursos" :key="i">
-      <b-card no-body :img-src="curso.data.urlImg" img-alt="Image" img-top class="img" >
+    <b-col v-for="(curso, i) in cursos" :key="i" class="card-cuerpo">
+      <b-card no-body :img-src="curso.data.urlImg"  img-top class="img" >
           <template #header>
             <h6 class="mb-0">{{ curso.data.nombreCurso }}</h6>
           </template>
-
           <b-list-group flush>
-            
             <b-list-group-item> <b>Cupos: </b>{{ curso.data.cuposDelCurso }}<br></b-list-group-item>
-          
             <b-list-group-item><b>Duración:</b><br>{{ curso.data.duracionDelCurso }}</b-list-group-item>
             <b-list-group-item><b>Inscritos:</b><br>{{ curso.data.inscritosEnElCurso }}</b-list-group-item>
             <b-list-group-item><b>Descripción:</b><br>{{ curso.data.descripcion }}</b-list-group-item>
-          
           </b-list-group>
-
         </b-card>
     </b-col>
- 
-
   </b-row>
 </b-container>
-  </div>
+  
 
 
 
@@ -161,16 +154,21 @@ export default {
 </script>
 
 <style >
-.card{
- 
-}
+
 .img{
 transition: transform .2s;
 border: 1px solid #ddd;
   border-radius: 4px;
   padding: 5px;
-  width: 150px;
+ 
+
+  
 }
+img{
+  width: 100%;
+  height:200px;
+}
+
 .img:hover{ 
   transform: scale(1.1);
   

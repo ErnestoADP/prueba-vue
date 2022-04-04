@@ -17,7 +17,7 @@
         <b-button class="m-3" variant="danger">Limpiar Formulario</b-button>
         <b-button class="m-3" variant="warning">Limpiar Validación</b-button>
       </div>
-    </b-container>
+    </b-container>  
   </div>
   
 </template>
