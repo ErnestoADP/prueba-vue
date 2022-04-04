@@ -77,17 +77,17 @@
             <th>Cupos</th>
             <th>Inscritos</th>
             <th>Duración</th>
-            <th>Costo</th>
+          
             <th clas="texto">Acciones</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(curso, i) in cursos" :key="i">
             <td>{{ curso.data.nombreCurso }}</td>
-            <td>{{ curso.data.urlImg }}</td>
             <td>{{ curso.data.cuposDelCurso }}</td>
             <td>{{ curso.data.inscritosEnElCurso }}</td>
             <td>{{ curso.data.duracionDelCurso }}</td>
+           
             <td>
 <!--------------------------------------------------------BOTON PARA EDITAR------------------------------------------------------------------------------>
               <b-button
@@ -160,15 +160,15 @@
           </b-form-textarea>
         </div>
       </b-modal>
-      dv
+    
 <!--------------------------------------------------------CONTEO DE LOS CURSOS Y ALUMNOS------------------------------------------------------------------------------->
-      <div>
-        <input class="uno m-2" type="text" readonly="readonly" placeholder="ayuda" />
-        <input class="dos m-2" type="text" readonly="readonly"  placeholder="ayuda"/>
-        <input class="tres m-2" type="text" readonly="readonly" placeholder="ayuda"/>
-        <input class="cuatro m-2" type="text" readonly="readonly" placeholder="ayuda"/>
-        <input class="cinco m-2" type="text" readonly="readonly" placeholder="ayuda"/>
-        <input class="seis m-2" type="text" readonly="readonly" placeholder="ayuda"/>
+   <div>
+        <input class="uno m-2" type="text" readonly="readonly" placeholder="Cantidad Total de alumnos:" />
+        <input class="dos m-2" type="text" readonly="readonly"  placeholder="Cantidad total de alumnos inscritos: "/>
+        <input class="tres m-2" type="text" readonly="readonly" placeholder="Cantidad de cupos restantes: "/>
+          <input class="cuatro m-2" type="text" readonly="readonly"  placeholder="Cantidad de cursos terminados: 0" /> 
+        <input class="cinco m-2" type="text" readonly="readonly" placeholder="Cantidad de cursos activos: "/>
+        <input class="seis m-2" type="text" readonly="readonly" placeholder="Cantidad de cursos: "/>
       </div>
     </section>
   </div>
@@ -330,5 +330,9 @@ th,td{
 padding:4px 1px 3px 1px ;
 border-bottom: 1px solid;
 box-shadow: 0px 1px 0px #000000;
+}
+td{
+
+   
 }
 </style>
