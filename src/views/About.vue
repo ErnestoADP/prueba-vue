@@ -331,8 +331,5 @@ padding:4px 1px 3px 1px ;
 border-bottom: 1px solid;
 box-shadow: 0px 1px 0px #000000;
 }
-td{
 
-   
-}
 </style>

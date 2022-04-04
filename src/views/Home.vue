@@ -1,10 +1,11 @@
 <template>
 <div>
-<b-container class="bv-example-row">
+  <div class="card">
+    <b-container class="bv-example-row">
   <h2 style="margin: 20px 0">Lista de Cursos</h2>
   <b-row>
     <b-col v-for="(curso, i) in cursos" :key="i">
-      <b-card no-body :img-src="curso.data.urlImg" img-alt="Image" img-top >
+      <b-card no-body :img-src="curso.data.urlImg" img-alt="Image" img-top class="img" >
           <template #header>
             <h6 class="mb-0">{{ curso.data.nombreCurso }}</h6>
           </template>
@@ -25,6 +26,8 @@
 
   </b-row>
 </b-container>
+  </div>
+
 
 
 <div id="app">
@@ -158,6 +161,19 @@ export default {
 </script>
 
 <style >
-
+.card{
+ 
+}
+.img{
+transition: transform .2s;
+border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 150px;
+}
+.img:hover{ 
+  transform: scale(1.1);
+  
+}
 </style>
 
